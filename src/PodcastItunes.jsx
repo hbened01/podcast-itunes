@@ -1,13 +1,21 @@
-import { useState } from 'react'
-import './PodcastItunes.css'
+import { useState, useEffect } from "react";
+import "./PodcastItunes.css";
+import { getPodcastsData } from "@/services";
+import { Header } from "@/components/";
 
 const PodcastItunes = () => {
-
+  useEffect(() => {
+    getPodcastsData().then((data) => {
+      console.log(data);
+    });
+  }, []);
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  )
-}
+    <>
+      <section className="podcast-container">
+        <Header />
+      </section>
+    </>
+  );
+};
 
-export default PodcastItunes
+export default PodcastItunes;
