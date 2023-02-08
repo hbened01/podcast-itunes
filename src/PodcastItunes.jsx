@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./PodcastItunes.css";
 import { getPodcastsData } from "@/services";
 import { Header } from "@/components/";
+import Routes from "@/routes/Routes";
 
 const PodcastItunes = () => {
   useEffect(() => {
@@ -13,6 +14,7 @@ const PodcastItunes = () => {
     <>
       <section className="podcast-container">
         <Header />
+        <Routes />
       </section>
     </>
   );
