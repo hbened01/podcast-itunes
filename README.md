@@ -18,7 +18,7 @@ npm run test
 
 ## CLI Commands
 
-# Add in host file in the end next line
+### Add in host file in the end next line
 127.0.0.1     podcast_itunes.com
 
 For more info, checkout the [React Page Documentation](https://beta.es.reactjs.org/).
