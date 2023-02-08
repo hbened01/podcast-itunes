@@ -1,0 +1,12 @@
+.img-container {
+
+  @apply flex flex-col items-center justify-center self-center; 
+
+  &_bg {
+    @apply object-cover h-[92vh] w-screen;
+  }
+
+  &_text {
+    @apply text-center m-1 w-[6vw] rounded-full text-gray-50 bg-gray-400 hover:bg-gray-500 active:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-300;
+  }
+}
