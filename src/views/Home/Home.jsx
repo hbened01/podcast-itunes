@@ -11,7 +11,7 @@ const Home = () => {
   }, []);
   return (
     <>
-      <div className="flex flex-wrap gap-10 mt-5 items-center justify-center">
+      <div className="flex flex-wrap gap-10 pt-10 pb-10 items-center justify-center">
         {podcastData.length > 0 &&
           podcastData?.map((podcast) => {
             const author = podcast["im:artist"].label;
