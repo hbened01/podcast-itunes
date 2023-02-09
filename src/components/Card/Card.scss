@@ -1,3 +1,15 @@
 .card-container {
-  @apply sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/5;
+  @apply sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/5 bg-gray-200 border border-gray-500 rounded-lg shadow-gray-500 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.5)] mt-40 hover:bg-gray-50 cursor-pointer;
+  &_img{
+    @apply w-full h-full object-cover object-center rounded-full shadow-gray-500 border border-gray-500 self-center -mt-40 drop-shadow-[2px_2px_2px_rgba(0,0,0,0.5)];
+  }
+  &_text {
+    @apply p-5;
+    &_title {
+      @apply text-gray-700 text-xl font-medium mb-2 truncate drop-shadow-[2px_2px_2px_rgba(0,0,0,0.5)];
+    }
+    &_author {
+      @apply text-gray-500 text-base mb-2 text-justify truncate drop-shadow-[2px_2px_2px_rgba(0,0,0,0.5)];
+    }
+  }
 }

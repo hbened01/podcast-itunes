@@ -1,23 +1,22 @@
 import React from "react";
 import "./Card.scss";
 
-const Card = () => {
+const Card = ({ data }) => {
+  const { author, podcastId, imageSrc, title } = data;
+
   return (
     <>
-      <div className="card-container bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div className="card-container">
         <div className="flex flex-col items-stretch">
           <img
-            className="object-cover rounded-lg shadow-lg self-center"
-            src="https://mdbootstrap.com/img/new/standard/nature/182.jpg"
+            className="card-container_img"
+            src={imageSrc}
             alt="podcast-image"
           />
-          <div className="p-2">
-            <h5 className="text-gray-900 text-xl font-medium mb-2">
-              Card title
-            </h5>
-            <p className="text-gray-700 text-base mb-2 text-justify">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+          <div className="card-container_text">
+            <h5 className="card-container_text_title">{title}</h5>
+            <p className="card-container_text_author">
+              Author: {author}
             </p>
           </div>
         </div>
