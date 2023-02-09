@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from "@/components/";
+import { Header } from "@/components";
 import Routes from "@/routes/Routes";
 import "./PodcastItunes.scss";
 
