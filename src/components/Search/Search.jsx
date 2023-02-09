@@ -2,7 +2,7 @@ import React from "react";
 import { BsSearch } from "react-icons/bs";
 import "./Search.scss";
 
-const Search = () => {
+const Search = ({onChange}) => {
   return (
     <div className="search-container">
       <label
@@ -20,7 +20,7 @@ const Search = () => {
           id="search"
           className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-gray-500"
           placeholder="Search"
-          required
+          onChange={(e) => onChange(e?.target?.value?.toLowerCase() || "")}
         />
       </div>
     </div>
