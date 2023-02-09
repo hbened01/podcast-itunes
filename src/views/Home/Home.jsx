@@ -12,12 +12,12 @@ const Home = () => {
   return (
     <>
       <div className="flex flex-wrap gap-10 pt-10 pb-10 items-center justify-center">
-        {podcastData.length > 0 &&
+        {podcastData?.length > 0 &&
           podcastData?.map((podcast) => {
-            const author = podcast["im:artist"].label;
-            const podcastId = podcast.id.attributes["im:id"];
-            const imageSrc = podcast["im:image"][2].label;
-            const title = podcast["im:name"].label;
+            const author = podcast["im:artist"]?.label;
+            const podcastId = podcast?.id?.attributes["im:id"];
+            const imageSrc = podcast["im:image"][2]?.label;
+            const title = podcast["im:name"]?.label;
             return (
               <Card
                 data={{ author, podcastId, imageSrc, title }}
