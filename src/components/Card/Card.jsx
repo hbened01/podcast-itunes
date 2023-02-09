@@ -16,7 +16,7 @@ const Card = ({ data }) => {
           <div className="card-container_text">
             <h5 className="card-container_text_title">{title}</h5>
             <p className="card-container_text_author">
-              Author: {author}
+              <span className="underline underline-offset-2">Author</span>: {author}
             </p>
           </div>
         </div>

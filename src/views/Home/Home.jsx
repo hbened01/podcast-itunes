@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { getPodcastsData } from "@/services";
-import { Card } from "@/components";
+import { Card, Search } from "@/components";
 
 const Home = () => {
+  const [filter, setFilter] = useState('');
   const [podcastData, setPodcastData] = useState([]);
-  useEffect(() => {
+  useEffect(() => { 
     getPodcastsData().then((data) => {
       setPodcastData(data?.feed?.entry);
     });
   }, []);
   return (
-    <>
-      <div className="flex flex-wrap gap-10 pt-10 pb-10 items-center justify-center">
-        {podcastData.length > 0 &&
-          podcastData?.map((podcast) => {
-            const author = podcast["im:artist"].label;
-            const podcastId = podcast.id.attributes["im:id"];
-            const imageSrc = podcast["im:image"][2].label;
-            const title = podcast["im:name"].label;
+    <div className="relative">
+      <Search onChange={setFilter} />
+      <div className="flex flex-wrap gap-10 pt-20 pb-5 items-center justify-around">
+        {podcastData?.length > 0 &&
+          podcastData?.filter((podcast) => {
+            const author = podcast["im:artist"]?.label.toLowerCase();
+            const title = podcast["im:name"]?.label.toLowerCase();
+            if (filter === "") return true;
+            if (author.includes(filter) || title.includes(filter)) return true;
+            return false;
+          }).map((podcast) => {
+            const author = podcast["im:artist"]?.label;
+            const podcastId = podcast?.id?.attributes["im:id"];
+            const imageSrc = podcast["im:image"][2]?.label;
+            const title = podcast["im:name"]?.label;
             return (
               <Card
                 data={{ author, podcastId, imageSrc, title }}
@@ -26,7 +34,7 @@ const Home = () => {
             );
           })}
       </div>
-    </>
+    </div>
   );
 };
 
