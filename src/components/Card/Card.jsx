@@ -1,12 +1,12 @@
 import React from "react";
 import "./Card.scss";
 
-const Card = ({ data }) => {
+const Card = ({ data, handleOnClickPodCast }) => {
   const { author, podcastId, imageSrc, title } = data;
 
   return (
     <>
-      <div className="card-container">
+      <div className="card-container" onClick={() => handleOnClickPodCast(podcastId)}>
         <div className="flex flex-col items-stretch">
           <img
             className="card-container_img"

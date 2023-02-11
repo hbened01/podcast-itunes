@@ -9,14 +9,15 @@ const routes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/podcastDetail/:id" element={<PodcastDetail />} />
+        <Route name="index" path="/" element={<Home />} />
+        <Route name="home" path="/home" element={<Home />} />
+        <Route name="podcast-detail" path="/podcastDetail/:id" element={<PodcastDetail />} />
         <Route
+          name="podcast-episode-detail"
           path="/podcastEpisodeDetail/:id"
           element={<PodcastEpisodeDetail />}
         />
-        <Route path="*" element={<NotFound />} />
+        <Route name="not-found" path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

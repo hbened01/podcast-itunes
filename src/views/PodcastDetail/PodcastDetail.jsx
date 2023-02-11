@@ -1,7 +1,9 @@
 import React from "react";
+import { useParams, Link as RouterLink } from "react-router-dom";
 
 const PodcastDetail = () => {
-  return <div>This is a simple PodcastDetail component</div>;
+  const { id } = useParams();
+  return <div>This is a simple PodcastDetail component {id}</div>;
 };
 
 export default PodcastDetail;
