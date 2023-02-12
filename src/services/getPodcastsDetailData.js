@@ -1,8 +1,8 @@
 import { VITE_API_ITUNES_URL } from "@/constants/";
 
-const getPodcastsData = async () => {
+const getPodcastsDetailData = async (podcastId) => {
   try {
-    const url = `${VITE_API_ITUNES_URL}/us/rss/toppodcasts/limit=100/genre=1310/json`;
+    const url = `${VITE_API_ITUNES_URL}/lookup?id=${podcastId}&country=US&media=podcast&entity=podcastEpisode&limit=500`;
     const response = await fetch(
       `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`
     );
@@ -12,4 +12,4 @@ const getPodcastsData = async () => {
   }
 };
 
-export default getPodcastsData;
+export default getPodcastsDetailData;
