@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { getPodcastsData } from "@/services";
 import { Card, Search, Loader } from "@/components";
-import { addHours, getTime } from "date-fns";
+import { addHours, getTime, addMinutes} from "date-fns";
 import { useNavigate } from "react-router-dom";
 import "./Home.scss";
 
@@ -14,40 +14,40 @@ const Home = () => {
 
   const setPodcastDataState = (data) => {
     setPodcastData(data);
-    setTimeout(() => setCount(home.current.childNodes.length), 100);
+    setTimeout(() => setCount(home?.current?.childNodes?.length || 0), 100);
   };
 
   useEffect(() => {
-    const dateControl = JSON.parse(window.localStorage.getItem("DATE_CONTROL"));
-    const podcastDataStorage = JSON.parse(
-      window.localStorage.getItem("DATA_PODCASTS")
+    const podcastDataListStorage = JSON.parse(
+      window.localStorage.getItem("DATA_PODCASTS_HOME")
     );
-    if (getTime(new Date()) > dateControl || !podcastDataStorage) {
+    if (
+      getTime(new Date()) > podcastDataListStorage?.dateControl || !podcastDataListStorage
+    ) {
       setTimeout(() => {
         getPodcastsData()
           .then((data) => {
-            const dataFetchPodcaster = data?.feed?.entry;
+            const dataFetchPodcaster = JSON.parse(data?.contents).feed?.entry;
             const dateControlApiTime = getTime(addHours(new Date(), 24)); // CONTROL API TIME 24 HRS.
             // SET DATA IN THE STATE:
             setPodcastDataState(dataFetchPodcaster);
             // SET DATA IN LOCALSTORAGE:
             window.localStorage.setItem(
-              "DATE_CONTROL",
-              JSON.stringify(dateControlApiTime)
-            );
-            window.localStorage.setItem(
-              "DATA_PODCASTS",
-              JSON.stringify(dataFetchPodcaster)
+              "DATA_PODCASTS_HOME",
+              JSON.stringify({
+                dataListPodcasts: dataFetchPodcaster,
+                dateControl: dateControlApiTime,
+              })
             );
           })
           .catch((error) => console.log(error));
         return;
-      }, 2000);
+      }, 1000);
     }
     setTimeout(() => {
       // SET DATA IN THE STATE:
-      setPodcastDataState(podcastDataStorage);
-    }, 2000);
+      setPodcastDataState(podcastDataListStorage?.dataListPodcasts);
+    }, 1000);
   }, [filter]);
 
   // GO TO DETAIL PODCAST:
