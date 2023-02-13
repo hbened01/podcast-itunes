@@ -1,2 +1,4 @@
 import getPodcastsData from "./getPodcastsData";
-export { getPodcastsData };
+import getPodcastsDetailData from "./getPodcastsDetailData";
+import getPodcastsEpisodeDetailData from "./getPodcastsEpisodeDetailData";
+export { getPodcastsData, getPodcastsDetailData, getPodcastsEpisodeDetailData };
