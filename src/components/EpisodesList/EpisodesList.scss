@@ -1,0 +1,21 @@
+.episodes-container {
+  @apply self-start sm:w-[50%] md:w-[65%] lg:w-[65%];
+  &_header {
+    @apply bg-white text-center text-gray-700 text-xl font-bold shadow-lg rounded-lg p-2;
+  }
+  &_table {
+    @apply bg-white mt-5 relative overflow-x-auto shadow-lg sm:rounded-lg max-h-screen;
+  }
+  &_table table {
+    @apply w-full text-sm text-left text-gray-500;
+  }
+  &_table thead {
+    @apply text-xs text-gray-700 uppercase bg-gray-50 border-b sticky top-0;
+  }
+  &_table tbody {
+    @apply max-h-screen overflow-y-auto;
+  }
+  &_table th {
+    @apply px-6 py-3;
+  }
+}
