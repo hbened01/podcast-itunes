@@ -1,27 +1,45 @@
 import React from "react";
 import "./BasicCard.scss";
+import { randomHex } from "@/utils";
 
-const BasicCard = () => {
+const BasicCard = ({
+  collectionName,
+  artworkUrl600,
+  artistName,
+  summary,
+  genres,
+}) => {
   return (
-    <div className="max-w-sm bg-white border flex flex-col items-stretch border-gray-200 rounded-lg shadow">
-      <div className="px-5 pt-5">
+    <div className="basic-card-container">
+      <div className="basic-card-container_img">
         <img
-          className="object-cover object-center rounded-lg"
-          src="https://mdbootstrap.com/img/new/standard/nature/182.jpg"
+          src={artworkUrl600}
           alt=""
         />
         <div className="pb-5 border-b border-gray-300"></div>
       </div>
-      <div className="px-5">
-        <div className="border-b border-gray-300">
-          <h5 className="my-2 text-2xl font-bold tracking-tight text-gray-900">
-            Noteworthy technology acquisitions 2021
-          </h5>
+      <div className="basic-card-container_body">
+        <div className="basic-card-container_body_description">
+          <div className="basic-card-container_body_description_title">
+            {collectionName}
+          </div>
+          <div className="basic-card-container_body_description_subtitle">
+            By {artistName}
+          </div>
         </div>
-        <div className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          Here are the biggest enterprise technology acquisitions of 2021 so
-          far, in reverse chronological order.
+        <div className="basic-card-container_body_description_genres">
+          {genres?.map((genre) => {
+            return (
+              <span
+                key={genre}
+                style={{ '--color': randomHex()}}
+              >
+                {genre}
+              </span>
+            );
+          })}
         </div>
+        <div className="basic-card-container_body_description_summary">{summary}</div>
       </div>
     </div>
   );

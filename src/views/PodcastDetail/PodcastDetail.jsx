@@ -1,20 +1,52 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams, Link as RouterLink } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getPodcastsDetailData } from "@/services";
 import { addHours, getTime } from "date-fns";
+import { BasicCard, Loader, EpisodesList } from "@/components";
+import "./PodcastDetail.scss";
 
 const PodcastDetail = () => {
   const { id } = useParams();
-  const [dataEpisode, setDataEpisode] = useState([]);
+  const navigate = useNavigate();
+  const [dataEpisodes, setDataEpisodes] = useState([]);
+  const [dataEpisodeTrackCard, setDataEpisodeTrackCard] = useState([]);
   const once = useRef(true); // Fix twice calls in hook useEffect.
+  const [isLoading, setIsLoading] = useState(false);
 
   let podcastsEpisodesDataStorage = JSON.parse(
     window.localStorage.getItem("DATA_PODCASTS_EPISODES")
   );
 
+  const podcastDataStorage = JSON.parse(
+    window.localStorage.getItem("DATA_PODCASTS_HOME")
+  )?.dataListPodcasts?.find(
+    (podcast) => podcast?.id?.attributes["im:id"] === id
+  );
+
+  const { summary } = podcastDataStorage;
+
+  const setdataEpisodesInStates = (episode) => {
+    episode?.wrapperType !== "track"
+      ? setDataEpisodes((prevState) => [...prevState, episode])
+      : setDataEpisodeTrackCard(episode);
+  };
+
+  const handleClickEpisode = (episodeId) => {
+    navigate(`/podcastEpisodeDetail/${episodeId}`, {
+      state: {
+        summary: summary?.label,
+        dataEpisodes,
+        dataEpisodeTrackCard,
+      },
+    });
+  };
+
   useEffect(() => {
     if (once.current) {
       once.current = false;
+      // Add loading indicator:
+      setIsLoading(true);
+      // Find index of episode:
       const isMatchIndex = podcastsEpisodesDataStorage?.findIndex(
         (episode) => episode.collectionId === id
       );
@@ -25,9 +57,11 @@ const PodcastDetail = () => {
           podcastsEpisodesDataStorage[isMatchIndex]?.dateControl
       ) {
         // REMOVE COLLECTION ID BEFORE UPDATE WITH NEW INSTANCE.
-        podcastsEpisodesDataStorage = podcastsEpisodesDataStorage.filter(
-          (episode) => episode.collectionId !== id
-        );
+        if (typeof isMatchIndex !== "undefined" && isMatchIndex !== -1) {
+          podcastsEpisodesDataStorage = podcastsEpisodesDataStorage?.filter(
+            (episode) => episode.collectionId !== id
+          );
+        }
         getPodcastsDetailData(id)
           .then((data) => {
             const dateControlEpisodeApiTime = getTime(addHours(new Date(), 24)); // CONTROL EPISODE API TIME 24 HRS.
@@ -38,7 +72,7 @@ const PodcastDetail = () => {
                 {
                   dateControl: dateControlEpisodeApiTime,
                   collectionId: id,
-                  dataPodcastsEpisode: dataFetchEpisodes,
+                  dataPodcastsEpisodes: dataFetchEpisodes,
                 },
               ],
             ];
@@ -48,20 +82,37 @@ const PodcastDetail = () => {
               JSON.stringify(newPodcastsEpisodesDataStorage)
             );
             // SET DATA EPISODE:
-            setDataEpisode(dataFetchEpisodes);
+            dataFetchEpisodes?.results?.forEach((episode) =>
+              setdataEpisodesInStates(episode)
+            );
           })
-          .catch((error) => console.log(error));
+          .catch((error) => console.log(error))
+          .finally(() => setIsLoading(false));
         return;
       }
       // SET DATA EPISODE:
-      setDataEpisode(
-        podcastsEpisodesDataStorage[isMatchIndex].dataPodcastsEpisode
+      podcastsEpisodesDataStorage[
+        isMatchIndex
+      ]?.dataPodcastsEpisodes?.results?.forEach((episode) =>
+        setdataEpisodesInStates(episode)
       );
+      setIsLoading(false);
     }
   }, []);
-  return <>
-    This is a simple PodcastDetail component {id}
-  </>;
+  return (
+    <>
+      {!isLoading && (
+        <div className="podcast-detail-container">
+          <BasicCard summary={summary?.label} {...dataEpisodeTrackCard} />
+          <EpisodesList
+            dataEpisodeTrackCard={dataEpisodeTrackCard}
+            dataEpisodes={dataEpisodes}
+            handleClickEpisode={handleClickEpisode}
+          />
+        </div>
+      )}
+      {isLoading && <Loader />}
+    </>
+  );
 };
-
 export default PodcastDetail;

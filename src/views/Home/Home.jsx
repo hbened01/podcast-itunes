@@ -11,7 +11,6 @@ const Home = () => {
   const [count, setCount] = useState(0);
   const home = useRef(null);
   const navigate = useNavigate();
-  const once = useRef(true); // Fix twice calls in hook useEffect.
 
   const setPodcastDataState = (data) => {
     setPodcastData(data);
@@ -23,37 +22,34 @@ const Home = () => {
   );
 
   useEffect(() => {
-    if (once.current) {
-      once.current = false;
-      if (
-        getTime(new Date()) > podcastDataListStorage?.dateControl ||
-        !podcastDataListStorage
-      ) {
-        setTimeout(() => {
-          getPodcastsData()
-            .then((data) => {
-              const dataFetchPodcaster = JSON.parse(data?.contents).feed?.entry;
-              const dateControlApiTime = getTime(addHours(new Date(), 24)); // CONTROL API TIME 24 HRS.
-              // SET DATA IN THE STATE:
-              setPodcastDataState(dataFetchPodcaster);
-              // SET DATA IN LOCALSTORAGE:
-              window.localStorage.setItem(
-                "DATA_PODCASTS_HOME",
-                JSON.stringify({
-                  dateControl: dateControlApiTime,
-                  dataListPodcasts: dataFetchPodcaster,
-                })
-              );
-            })
-            .catch((error) => console.log(error));
-          return;
-        }, 1000);
-      }
+    if (
+      getTime(new Date()) > podcastDataListStorage?.dateControl ||
+      !podcastDataListStorage
+    ) {
       setTimeout(() => {
-        // SET DATA IN THE STATE:
-        setPodcastDataState(podcastDataListStorage?.dataListPodcasts);
+        getPodcastsData()
+          .then((data) => {
+            const dataFetchPodcaster = JSON.parse(data?.contents).feed?.entry;
+            const dateControlApiTime = getTime(addHours(new Date(), 24)); // CONTROL API TIME 24 HRS.
+            // SET DATA IN THE STATE:
+            setPodcastDataState(dataFetchPodcaster);
+            // SET DATA IN LOCALSTORAGE:
+            window.localStorage.setItem(
+              "DATA_PODCASTS_HOME",
+              JSON.stringify({
+                dateControl: dateControlApiTime,
+                dataListPodcasts: dataFetchPodcaster,
+              })
+            );
+          })
+          .catch((error) => console.log(error));
+        return;
       }, 1000);
     }
+    setTimeout(() => {
+      // SET DATA IN THE STATE:
+      setPodcastDataState(podcastDataListStorage?.dataListPodcasts);
+    }, 1000);
   }, [filter]);
 
   // GO TO DETAIL PODCAST:
