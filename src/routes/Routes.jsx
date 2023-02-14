@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Home, PodcastDetail, PodcastEpisodeDetail } from "@/views";
 import { NotFound } from "@/components";
 
@@ -7,19 +7,13 @@ import { NotFound } from "@/components";
 const routes = () => {
   // GET COMPONENTS FROM DIRECTORY
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route name="index" path="/" element={<Home />} />
-        <Route name="home" path="/home" element={<Home />} />
-        <Route name="podcast-detail" path="/podcastDetail/:id" element={<PodcastDetail />} />
-        <Route
-          name="podcast-episode-detail"
-          path="/podcastEpisodeDetail/:id"
-          element={<PodcastEpisodeDetail />}
-        />
-        <Route name="not-found" path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/podcastDetail/:id" element={<PodcastDetail />} />
+      <Route path="/podcastEpisodeDetail/:id" element={<PodcastEpisodeDetail />} />
+      <Route name="not-found" path="*" element={<NotFound />} />
+    </Routes>
   );
 };
 
