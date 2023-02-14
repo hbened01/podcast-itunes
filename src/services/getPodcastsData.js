@@ -4,9 +4,10 @@ const getPodcastsData = async () => {
   try {
     const cors = VITE_API_HEROKU_CORS;
     const url = `${VITE_API_ITUNES_URL}/us/rss/toppodcasts/limit=100/genre=1310/json`;
-    const response = await fetch(
-      `${cors}/${url}`
-    );
+    const options = {
+      headers: { Origin: "https://example.com" },
+    };
+    const response = await fetch(`${cors}/${url}`, options);
     return await response.json();
   } catch (error) {
     return error;
