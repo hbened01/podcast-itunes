@@ -22,12 +22,15 @@ const PodcastEpisodeDetail = () => {
   useEffect(() => {
     if (!location?.state) {
       getPodcastsDetailData(podcastId).then((data) => {
-        const dataFetchEpisodes = JSON.parse(data?.contents);
+        const dataFetchEpisodes = data;
         dataFetchEpisodes?.results?.forEach((episode) =>
           setdataEpisodesInStates(episode)
         );
       })
     }
+  }, [podcastId, location?.state]);
+
+  useEffect(() => {
     // Save reference header loader:
     headerLoader.current = document.querySelector(".header-loader");
     // Add loading indicator:
@@ -43,8 +46,9 @@ const PodcastEpisodeDetail = () => {
       // Remove loading indicator:
       setIsLoading(false);
       headerLoader.current?.classList?.add("hidden");
-    }, 1000);
-  }, []);
+    }, 500);
+  }, [dataEpisodes, episodeId])
+  
 
   return (
     <>

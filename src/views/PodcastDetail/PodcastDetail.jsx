@@ -13,18 +13,11 @@ const PodcastDetail = () => {
   const once = useRef(true); // Fix twice calls in hook useEffect.
   const [isLoading, setIsLoading] = useState(false);
   const headerLoader = useRef(null);
+  const podcastsEpisodesDataStorage = useRef(null);
 
-  let podcastsEpisodesDataStorage = JSON.parse(
+  podcastsEpisodesDataStorage.current = JSON.parse(
     window.localStorage.getItem("DATA_PODCASTS_EPISODES")
   );
-
-  const podcastDataStorage = JSON.parse(
-    window.localStorage.getItem("DATA_PODCASTS_HOME")
-  )?.dataListPodcasts?.find(
-    (podcast) => podcast?.id?.attributes["im:id"] === podcastId
-  );
-
-  const { summary } = podcastDataStorage;
 
   const setdataEpisodesInStates = (episode) => {
     episode?.wrapperType !== "track"
@@ -50,18 +43,18 @@ const PodcastDetail = () => {
       setIsLoading(true);
       headerLoader.current?.classList?.remove("hidden");
       // Find index of episode:
-      const isMatchIndex = podcastsEpisodesDataStorage?.findIndex(
+      const isMatchIndex = podcastsEpisodesDataStorage.current?.findIndex(
         (episode) => episode.collectionId === podcastId
       );
       if (
-        !podcastsEpisodesDataStorage ||
+        !podcastsEpisodesDataStorage.current ||
         isMatchIndex === -1 ||
         getTime(new Date()) >
-          podcastsEpisodesDataStorage[isMatchIndex]?.dateControl
+        podcastsEpisodesDataStorage.current[isMatchIndex]?.dateControl
       ) {
         // REMOVE COLLECTION ID BEFORE UPDATE WITH NEW INSTANCE.
         if (typeof isMatchIndex !== "undefined" && isMatchIndex !== -1) {
-          podcastsEpisodesDataStorage = podcastsEpisodesDataStorage?.filter(
+          podcastsEpisodesDataStorage.current = podcastsEpisodesDataStorage.current?.filter(
             (episode) => episode.collectionId !== podcastId
           );
         }
@@ -70,7 +63,7 @@ const PodcastDetail = () => {
             const dateControlEpisodeApiTime = getTime(addHours(new Date(), 24)); // CONTROL EPISODE API TIME 24 HRS.
             const dataFetchEpisodes = data;
             const newPodcastsEpisodesDataStorage = [
-              ...(podcastsEpisodesDataStorage || []),
+              ...(podcastsEpisodesDataStorage.current || []),
               ...[
                 {
                   dateControl: dateControlEpisodeApiTime,
@@ -98,7 +91,7 @@ const PodcastDetail = () => {
       }
       setTimeout(() => {
         // SET DATA EPISODE:
-        podcastsEpisodesDataStorage[
+        podcastsEpisodesDataStorage.current[
           isMatchIndex
         ]?.dataPodcastsEpisodes?.results?.forEach((episode) =>
           setdataEpisodesInStates(episode)
@@ -107,12 +100,12 @@ const PodcastDetail = () => {
         headerLoader.current?.classList?.add("hidden");
       }, 1000);
     }
-  }, []);
+  }, [podcastId]);
   return (
     <>
       {!isLoading && (
         <div className="podcast-detail-container">
-          <BasicCard summary={summary?.label} {...dataPodcastTrackCard} />
+          <BasicCard summary={dataPodcastTrackCard?.summary?.label} {...dataPodcastTrackCard} />
           <EpisodesList
             dataPodcastTrackCard={dataPodcastTrackCard}
             dataEpisodes={dataEpisodes}
