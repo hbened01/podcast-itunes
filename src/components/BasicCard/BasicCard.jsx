@@ -1,16 +1,19 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./BasicCard.scss";
 import { randomHex } from "@/utils";
 
 const BasicCard = ({
   collectionName,
+  collectionId,
   artworkUrl600,
   artistName,
   summary,
   genres,
 }) => {
+  const location = useLocation();
   return (
-    <div className="basic-card-container">
+    <Link className="basic-card-container" to={location?.pathname?.includes("podcastDetail") ? `/` : `/podcastDetail/${collectionId}`}>
       <div className="basic-card-container_img">
         <img
           src={artworkUrl600}
@@ -41,7 +44,7 @@ const BasicCard = ({
         </div>
         <div className="basic-card-container_body_description_summary">{summary}</div>
       </div>
-    </div>
+    </Link>
   );
 };
 

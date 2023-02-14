@@ -23,7 +23,7 @@
         @apply text-gray-700 text-xs font-light mr-2 px-2.5 py-0.5 rounded bg-[var(--color)] shadow;
       }
       &_summary {
-        @apply my-3 text-sm font-normal text-gray-500 text-justify h-[20vh] overflow-y-auto;
+        @apply my-3 text-sm font-normal text-gray-500 text-justify h-[20vh] overflow-y-auto pr-1;
       }
     }
   }
