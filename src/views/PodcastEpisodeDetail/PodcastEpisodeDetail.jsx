@@ -1,22 +1,33 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { EpisodeDetail, BasicCard, Loader } from "@/components";
+import { getPodcastsDetailData } from "@/services";
 import "./PodcastEpisodeDetail.scss";
 
 const PodcastEpisodeDetail = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const { podcastId, episodeId } = useParams();
-  const { summary, dataEpisodeTrackCard, dataEpisodes } = location?.state || {summary: null, dataEpisodeTrackCard: {}, dataEpisodes: []};
   const [episode, setEpisode] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const headerLoader = useRef(null);
+  const [dataEpisodes, setDataEpisodes] = useState(location?.state?.dataEpisodes || []);
+  const [dataPodcastTrackCard, setDataPodcastTrackCard] = useState(location?.state?.dataPodcastTrackCard || {});
+
+  const setdataEpisodesInStates = (episode) => {
+    episode?.wrapperType !== "track"
+      ? setDataEpisodes((prevState) => [...prevState, episode])
+      : setDataPodcastTrackCard(episode);
+  };
 
   useEffect(() => {
-    // Return podcast and getEpisodes if not data available: 
-    if (!summary && dataEpisodes.length === 0 && JSON.stringify(dataEpisodeTrackCard) === '{}') {
-      navigate(`/podcastDetail/${podcastId}`);
-    };
+    if (!location?.state) {
+      getPodcastsDetailData(podcastId).then((data) => {
+        const dataFetchEpisodes = JSON.parse(data?.contents);
+        dataFetchEpisodes?.results?.forEach((episode) =>
+          setdataEpisodesInStates(episode)
+        );
+      })
+    }
     // Save reference header loader:
     headerLoader.current = document.querySelector(".header-loader");
     // Add loading indicator:
@@ -33,15 +44,13 @@ const PodcastEpisodeDetail = () => {
       setIsLoading(false);
       headerLoader.current?.classList?.add("hidden");
     }, 1000);
-
-    return () => {};
   }, []);
 
   return (
     <>
       {!isLoading && (
         <div className="podcast-episode-detail-container">
-          <BasicCard summary={summary} {...dataEpisodeTrackCard} />
+          <BasicCard summary={dataPodcastTrackCard?.summary?.label} {...dataPodcastTrackCard} />
           <EpisodeDetail {...episode} />
         </div>
       )}

@@ -5,14 +5,14 @@ import { parseISO, format } from "date-fns";
 import "./EpisodesList.scss";
 
 const EpisodesList = ({
-  dataEpisodeTrackCard,
+  dataPodcastTrackCard,
   dataEpisodes,
   handleClickEpisode,
 }) => {
   return (
     <div className="episodes-container">
       <div className="episodes-container_header">
-        #Episodes: {dataEpisodeTrackCard?.trackCount}
+        #Episodes: {dataPodcastTrackCard?.trackCount}
       </div>
       <div className="episodes-container_table">
         <table>

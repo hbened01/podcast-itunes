@@ -9,7 +9,7 @@ const PodcastDetail = () => {
   const { podcastId } = useParams();
   const navigate = useNavigate();
   const [dataEpisodes, setDataEpisodes] = useState([]);
-  const [dataEpisodeTrackCard, setDataEpisodeTrackCard] = useState([]);
+  const [dataPodcastTrackCard, setDataPodcastTrackCard] = useState([]);
   const once = useRef(true); // Fix twice calls in hook useEffect.
   const [isLoading, setIsLoading] = useState(false);
   const headerLoader = useRef(null);
@@ -29,15 +29,14 @@ const PodcastDetail = () => {
   const setdataEpisodesInStates = (episode) => {
     episode?.wrapperType !== "track"
       ? setDataEpisodes((prevState) => [...prevState, episode])
-      : setDataEpisodeTrackCard(episode);
+      : setDataPodcastTrackCard(episode);
   };
 
   const handleClickEpisode = (podcastId, episodeId) => {
     navigate(`/podcastEpisodeDetail/${podcastId}/${episodeId}/`, {
       state: {
-        summary: summary?.label,
         dataEpisodes,
-        dataEpisodeTrackCard,
+        dataPodcastTrackCard,
       },
     });
   };
@@ -113,9 +112,9 @@ const PodcastDetail = () => {
     <>
       {!isLoading && (
         <div className="podcast-detail-container">
-          <BasicCard summary={summary?.label} {...dataEpisodeTrackCard} />
+          <BasicCard summary={summary?.label} {...dataPodcastTrackCard} />
           <EpisodesList
-            dataEpisodeTrackCard={dataEpisodeTrackCard}
+            dataPodcastTrackCard={dataPodcastTrackCard}
             dataEpisodes={dataEpisodes}
             handleClickEpisode={handleClickEpisode}
           />
