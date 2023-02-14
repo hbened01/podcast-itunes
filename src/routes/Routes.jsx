@@ -10,8 +10,8 @@ const routes = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/home" element={<Home />} />
-      <Route path="/podcastDetail/:id" element={<PodcastDetail />} />
-      <Route path="/podcastEpisodeDetail/:id" element={<PodcastEpisodeDetail />} />
+      <Route path="/podcastDetail/:podcastId" element={<PodcastDetail />} />
+      <Route path="/podcastEpisodeDetail/:podcastId/:episodeId" element={<PodcastEpisodeDetail />} />
       <Route name="not-found" path="*" element={<NotFound />} />
     </Routes>
   );

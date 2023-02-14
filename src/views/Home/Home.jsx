@@ -9,7 +9,9 @@ const Home = () => {
   const [filter, setFilter] = useState("");
   const [podcastData, setPodcastData] = useState([]);
   const [count, setCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const home = useRef(null);
+  const headerLoader = useRef(null);
   const navigate = useNavigate();
 
   const setPodcastDataState = (data) => {
@@ -22,6 +24,11 @@ const Home = () => {
   );
 
   useEffect(() => {
+    // Save reference header loader:
+    headerLoader.current = document.querySelector(".header-loader");
+    // Add loading indicator:
+    setIsLoading(true);
+    headerLoader.current?.classList?.remove("hidden");
     if (
       getTime(new Date()) > podcastDataListStorage?.dateControl ||
       !podcastDataListStorage
@@ -42,26 +49,32 @@ const Home = () => {
               })
             );
           })
-          .catch((error) => console.log(error));
+          .catch((error) => console.log(error))
+          .finally(() => {
+            setIsLoading(false);
+            headerLoader.current?.classList?.add("hidden");
+          });
         return;
-      }, 1000);
+      }, 500);
     }
     setTimeout(() => {
       // SET DATA IN THE STATE:
       setPodcastDataState(podcastDataListStorage?.dataListPodcasts);
-    }, 1000);
+      setIsLoading(false);
+      headerLoader.current?.classList?.add("hidden");
+    }, 500);
   }, [filter]);
 
   // GO TO DETAIL PODCAST:
-  const handleOnClickPodCast = (id) => {
-    navigate(`/podcastDetail/${id}`);
+  const handleOnClickPodCast = (podcastId) => {
+    navigate(`/podcastDetail/${podcastId}`);
   };
 
   return (
     <div className="relative">
       <Search onChange={setFilter} count={count} />
       <div ref={home} className="home-container">
-        {podcastData?.length > 0 &&
+        {!isLoading &&
           podcastData
             ?.filter((podcast) => {
               const author = podcast["im:artist"]?.label.toLowerCase();
@@ -83,7 +96,7 @@ const Home = () => {
                 />
               );
             })}
-        {podcastData?.length === 0 && <Loader />}
+        {isLoading && <Loader />}
       </div>
     </div>
   );

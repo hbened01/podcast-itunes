@@ -25,11 +25,11 @@ const EpisodesList = ({
           </thead>
           <tbody>
             {dataEpisodes?.map(
-              ({ trackName, releaseDate, trackTimeMillis, trackId }, key) => (
+              ({ trackName, releaseDate, trackTimeMillis, trackId, collectionId }, key) => (
                 <tr
-                  className="bg-white border-b cursor-pointer group"
-                  key={key}
-                  onClick={() => handleClickEpisode(trackId)}
+                  className={`bg-white border-b cursor-pointer group ${(key % 2) ? 'bg-gray-50' : ''}`}
+                  key={trackId}
+                  onClick={() => handleClickEpisode(collectionId, trackId)}
                 >
                   <td className="text-blue-500 group-hover:text-blue-700 px-6 py-4 inline-flex whitespace-nowrap">
                     <BsPlayCircle className="text-lg mt-[2px] mr-2" />
