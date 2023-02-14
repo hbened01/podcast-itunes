@@ -1,10 +1,11 @@
-import { VITE_API_ITUNES_URL } from "@/constants/";
+import { VITE_API_ITUNES_URL, VITE_API_HEROKU_CORS } from "@/constants/";
 
 const getPodcastsDetailData = async (podcastId) => {
   try {
+    const cors = VITE_API_HEROKU_CORS;
     const url = `${VITE_API_ITUNES_URL}/lookup?id=${podcastId}&country=US&media=podcast&entity=podcastEpisode&limit=250`;
     const response = await fetch(
-      `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`
+      `${cors}/${url}`
     );
     return await response.json();
   } catch (error) {

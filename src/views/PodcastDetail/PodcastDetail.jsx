@@ -68,7 +68,7 @@ const PodcastDetail = () => {
         getPodcastsDetailData(podcastId)
           .then((data) => {
             const dateControlEpisodeApiTime = getTime(addHours(new Date(), 24)); // CONTROL EPISODE API TIME 24 HRS.
-            const dataFetchEpisodes = JSON.parse(data?.contents);
+            const dataFetchEpisodes = data;
             const newPodcastsEpisodesDataStorage = [
               ...(podcastsEpisodesDataStorage || []),
               ...[
