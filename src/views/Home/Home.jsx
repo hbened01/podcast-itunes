@@ -13,13 +13,14 @@ const Home = () => {
   const home = useRef(null);
   const headerLoader = useRef(null);
   const navigate = useNavigate();
+  const podcastDataListStorage = useRef(null);
 
   const setPodcastDataState = (data) => {
     setPodcastData(data);
     setTimeout(() => setCount(home?.current?.childNodes?.length || 0), 100);
   };
 
-  const podcastDataListStorage = JSON.parse(
+  podcastDataListStorage.current = JSON.parse(
     window.localStorage.getItem("DATA_PODCASTS_HOME")
   );
 
@@ -30,8 +31,8 @@ const Home = () => {
     setIsLoading(true);
     headerLoader.current?.classList?.remove("hidden");
     if (
-      getTime(new Date()) > podcastDataListStorage?.dateControl ||
-      !podcastDataListStorage
+      getTime(new Date()) > podcastDataListStorage.current?.dateControl ||
+      !podcastDataListStorage.current
     ) {
       setTimeout(() => {
         getPodcastsData()
@@ -59,11 +60,11 @@ const Home = () => {
     }
     setTimeout(() => {
       // SET DATA IN THE STATE:
-      setPodcastDataState(podcastDataListStorage?.dataListPodcasts);
+      setPodcastDataState(podcastDataListStorage.current?.dataListPodcasts);
       setIsLoading(false);
       headerLoader.current?.classList?.add("hidden");
     }, 500);
-  }, [filter]);
+  }, [filter, podcastDataListStorage]);
 
   // GO TO DETAIL PODCAST:
   const handleOnClickPodCast = (podcastId) => {
@@ -80,8 +81,8 @@ const Home = () => {
               const author = podcast["im:artist"]?.label.toLowerCase();
               const title = podcast["im:name"]?.label.toLowerCase();
               if (filter === "") return true;
-              if (author.includes(filter) || title.includes(filter))
-                return true;
+              if (author.includes(filter) || title.includes(filter)) return true;
+              return false;
             })
             .map((podcast) => {
               const author = podcast["im:artist"]?.label;

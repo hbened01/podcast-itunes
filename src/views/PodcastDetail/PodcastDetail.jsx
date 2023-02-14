@@ -19,6 +19,14 @@ const PodcastDetail = () => {
     window.localStorage.getItem("DATA_PODCASTS_EPISODES")
   );
 
+  // const { summary } = podcastDataStorage;
+
+  // const setdataEpisodesInStates = (episode) => {
+  //   episode?.wrapperType !== "track"
+  //     ? setDataEpisodes((prevState) => [...prevState, episode])
+  //     : setDataPodcastTrackCard(episode);
+  // };
+
   const setdataEpisodesInStates = (episode) => {
     episode?.wrapperType !== "track"
       ? setDataEpisodes((prevState) => [...prevState, episode])

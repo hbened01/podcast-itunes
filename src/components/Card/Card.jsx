@@ -11,7 +11,7 @@ const Card = ({ data, handleOnClickPodCast }) => {
           <img
             className="card-container_img"
             src={imageSrc}
-            alt="podcast-image"
+            alt={podcastId}
           />
           <div className="card-container_text">
             <h5 className="card-container_text_title">{title}</h5>
