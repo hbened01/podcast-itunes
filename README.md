@@ -1,4 +1,5 @@
 # Podcaster Itunes Application
+Application make in React JS with Podcaster itunes api, styles in tailwind.
 
 ## CLI Commands
 
@@ -26,4 +27,6 @@ VITE_API_ITUNES_URL=https://itunes.apple.com
 VITE_API_ALLORIGINS_CORS=https://api.allorigins.win
 
 
-For more info, checkout the [React Page Documentation](https://beta.es.reactjs.org/).
+For more info about React, checkout the [React Page Documentation](https://beta.es.reactjs.org/).
+For more info about Vite, checkout the [React Page Documentation](https://vitejs.dev/guide/).
+For more info about Tailwind, checkout the [React Page Documentation](https://tailwindcss.com/docs/installation/).
