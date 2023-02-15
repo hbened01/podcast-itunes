@@ -1,18 +1,27 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { EpisodeDetail, BasicCard, Loader } from "@/components";
-import { getPodcastsData, getPodcastsDetailData } from "@/services";
+import { getPodcastsDetailData } from "@/services";
+import { Context } from "@/Contexts";
 import "./PodcastEpisodeDetail.scss";
 
 const PodcastEpisodeDetail = () => {
+  const context = useContext(Context);
   const location = useLocation();
   const { podcastId, episodeId } = useParams();
   const [episode, setEpisode] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const headerLoader = useRef(null);
+  const podcastDataStorage = useRef(null);
   const [summary, setSummary] = useState(location?.state?.summary || "");
   const [dataEpisodes, setDataEpisodes] = useState(location?.state?.dataEpisodes || []);
   const [dataPodcastTrackCard, setDataPodcastTrackCard] = useState(location?.state?.dataPodcastTrackCard || {});
+  const { podcastDataCtx } = context;
+
+  // Get specific podcast from list: 
+  podcastDataStorage.current = podcastDataCtx?.dataListPodcasts?.find(
+    (podcast) => podcast?.id?.attributes["im:id"] === podcastId
+  );
 
   const setdataEpisodesInStates = (episode) => {
     episode?.wrapperType !== "track"
@@ -28,27 +37,20 @@ const PodcastEpisodeDetail = () => {
           setdataEpisodesInStates(episode)
         );
       })
-      getPodcastsData()
-        .then((data) => {
-          const dataFetchPodcaster = JSON.parse(data?.contents)?.feed?.entry;
-          const podcastData = dataFetchPodcaster.find(
-            (podcast) => podcast?.id?.attributes["im:id"] === podcastId
-          );
-          // Set summary:
-          setSummary(
-            podcastData?.summary?.label
-          );
-        })
-        .catch((error) => console.log(error));
+      .catch((error) => console.log(error));
     }
   }, [podcastId, location?.state]);
 
   useEffect(() => {
+    // Set Summary if exists:
+    podcastDataStorage.current &&
+      setSummary(podcastDataStorage.current?.summary?.label);
     // Save reference header loader:
     headerLoader.current = document.querySelector(".header-loader");
     // Add loading indicator:
     setIsLoading(true);
     headerLoader.current?.classList?.remove("hidden");
+    // Set detail episode:
     setTimeout(() => {
       const getEpisode = dataEpisodes?.find(
         ({ trackId, wrapperType }) =>
@@ -60,7 +62,7 @@ const PodcastEpisodeDetail = () => {
       setIsLoading(false);
       headerLoader.current?.classList?.add("hidden");
     }, 500);
-  }, [dataEpisodes, episodeId])
+  }, [dataPodcastTrackCard, dataEpisodes, episodeId])
   
 
   return (

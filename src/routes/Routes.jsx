@@ -9,10 +9,10 @@ const routes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/podcastDetail/:podcastId" element={<PodcastDetail />} />
-      <Route path="/podcastEpisodeDetail/:podcastId/:episodeId" element={<PodcastEpisodeDetail />} />
-      <Route name="not-found" path="*" element={<NotFound />} />
+      <Route path="/podcast-itunes" element={<Home />} />
+      <Route path="/podcast-itunes/podcastDetail/:podcastId" element={<PodcastDetail />} />
+      <Route path="/podcast-itunes/podcastEpisodeDetail/:podcastId/:episodeId" element={<PodcastEpisodeDetail />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getPodcastsDetailData, getPodcastsData } from "@/services";
 import { addHours, getTime } from "date-fns";
+import { getPodcastsDetailData, getPodcastsData } from "@/services";
 import { BasicCard, Loader, EpisodesList } from "@/components";
+import { Context } from "@/Contexts";
 import "./PodcastDetail.scss";
 
 const PodcastDetail = () => {
@@ -16,15 +17,16 @@ const PodcastDetail = () => {
   const headerLoader = useRef(null);
   const podcastDataStorage = useRef(null);
   const podcastsEpisodesDataStorage = useRef(null);
+  const context = useContext(Context);
+  const { podcastDataCtx } = context;
+
+  // Get specific podcast from list: 
+  podcastDataStorage.current = podcastDataCtx?.dataListPodcasts?.find(
+    (podcast) => podcast?.id?.attributes["im:id"] === podcastId
+  );
 
   podcastsEpisodesDataStorage.current = JSON.parse(
     window.localStorage.getItem("DATA_PODCASTS_EPISODES")
-  );
-
-  podcastDataStorage.current = JSON.parse(
-    window.localStorage.getItem("DATA_PODCASTS_HOME")
-  )?.dataListPodcasts?.find(
-    (podcast) => podcast?.id?.attributes["im:id"] === podcastId
   );
 
   const setdataEpisodesInStates = (episode) => {
@@ -34,7 +36,7 @@ const PodcastDetail = () => {
   };
 
   const handleClickEpisode = (podcastId, episodeId) => {
-    navigate(`/podcastEpisodeDetail/${podcastId}/${episodeId}/`, {
+    navigate(`/podcast-itunes/podcastEpisodeDetail/${podcastId}/${episodeId}/`, {
       state: {
         summary,
         dataEpisodes,
@@ -44,7 +46,6 @@ const PodcastDetail = () => {
   };
 
   useEffect(() => {
-
     // Save reference header loader:
     headerLoader.current = document.querySelector(".header-loader");
 
@@ -53,7 +54,7 @@ const PodcastDetail = () => {
       setSummary(podcastDataStorage.current?.summary?.label);
 
     // Get data if not available in the local storage:
-    !podcastDataStorage?.current &&
+    !podcastsEpisodesDataStorage?.current &&
       getPodcastsData()
         .then((data) => {
           const dataFetchPodcaster = JSON.parse(data?.contents)?.feed?.entry;
@@ -72,9 +73,7 @@ const PodcastDetail = () => {
             })
           );
           // Set summary:
-          setSummary(
-            podcastData?.summary?.label
-          );
+          setSummary(podcastData?.summary?.label);
         })
         .catch((error) => console.log(error));
 
@@ -142,7 +141,7 @@ const PodcastDetail = () => {
         headerLoader.current?.classList?.add("hidden");
       }, 1000);
     }
-  }, [podcastId]);
+  }, [podcastId, podcastDataCtx]);
 
   return (
     <>

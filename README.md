@@ -1,4 +1,8 @@
 # Podcaster Itunes Application
+Application make in React JS with Podcaster itunes api, styles in tailwind.
+
+## Live Preview demo on github.com
+[Demo](https://hbened01.github.io/podcast-itunes/)
 
 ## CLI Commands
 
@@ -16,12 +20,14 @@ npm run prod
 npm run test
 ```
 
-## CLI Commands
-
 ### Add in host file in the end next line
-127.0.0.1     podcast_itunes.com
+127.0.0.1     podcaster.com
 
 ### Add .env file in the root directory with the following variables
-VITE_API_ITUNES_URL=https://itunes.apple.com/
+VITE_API_ITUNES_URL=https://itunes.apple.com
+VITE_API_ALLORIGINS_CORS=https://api.allorigins.win
 
-For more info, checkout the [React Page Documentation](https://beta.es.reactjs.org/).
+### Documentation links
+For more info about React, checkout the [React Page Documentation](https://beta.es.reactjs.org/).
+For more info about Vite, checkout the [React Page Documentation](https://vitejs.dev/guide/).
+For more info about Tailwind, checkout the [React Page Documentation](https://tailwindcss.com/docs/installation/).
