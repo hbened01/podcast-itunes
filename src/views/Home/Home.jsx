@@ -15,7 +15,7 @@ const Home = () => {
 
   const setPodcastDataState = (data) => {
     setPodcastData(data);
-    setTimeout(() => setCount(home?.current?.childNodes?.length || 0), 100);
+    setTimeout(() => setCount(home?.current?.childNodes?.length || 0), 500);
   };
 
   useEffect(() => {
