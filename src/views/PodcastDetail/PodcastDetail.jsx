@@ -9,7 +9,7 @@ const PodcastDetail = () => {
   const { podcastId } = useParams();
   const navigate = useNavigate();
   const [dataEpisodes, setDataEpisodes] = useState([]);
-  const [dataPodcastTrackCard, setDataPodcastTrackCard] = useState([]);
+  const [dataPodcastTrackCard, setDataPodcastTrackCard] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [summary, setSummary] = useState(null);
   const once = useRef(true); // Fix twice calls in hook useEffect.
