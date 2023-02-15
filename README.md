@@ -21,13 +21,21 @@ npm run test
 ```
 
 ### Add in host file in the end next line
+```
 127.0.0.1     podcaster.com
+```
 
 ### Add .env file in the root directory with the following variables
+```
 VITE_API_ITUNES_URL=https://itunes.apple.com
 VITE_API_ALLORIGINS_CORS=https://api.allorigins.win
+```
 
 ### Documentation links
+
 For more info about React, checkout the [React Page Documentation](https://beta.es.reactjs.org/).
+
 For more info about Vite, checkout the [React Page Documentation](https://vitejs.dev/guide/).
+
 For more info about Tailwind, checkout the [React Page Documentation](https://tailwindcss.com/docs/installation/).
+
