@@ -43,7 +43,7 @@ const BasicCard = ({
             );
           })}
         </div>
-        <div className="basic-card-container_body_description_summary">{summary}</div>
+        <div className="basic-card-container_body_description_summary" data-testid="summary">{summary}</div>
       </div>
     </Link>
   );
