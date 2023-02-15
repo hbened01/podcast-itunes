@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { BsSearch } from "react-icons/bs";
 import { BiLoaderAlt } from "react-icons/bi";
 import "./Search.scss";
@@ -23,6 +24,11 @@ const Search = ({ onChange, count }) => {
       </div>
     </div>
   );
+};
+
+Search.propTypes = {
+  count: PropTypes.number,
+  onChange: PropTypes.func,
 };
 
 export default Search;

@@ -86,12 +86,12 @@ const Home = () => {
             })
             .map((podcast) => {
               const author = podcast["im:artist"]?.label;
-              const podcastId = podcast?.id?.attributes["im:id"];
+              const podcastId = Number(podcast?.id?.attributes["im:id"]);
               const imageSrc = podcast["im:image"][2]?.label;
               const title = podcast["im:name"]?.label;
               return (
                 <Card
-                  data={{ author, podcastId, imageSrc, title }}
+                  {...{ author, podcastId, imageSrc, title }}
                   key={podcastId}
                   handleOnClickPodCast={handleOnClickPodCast}
                 />

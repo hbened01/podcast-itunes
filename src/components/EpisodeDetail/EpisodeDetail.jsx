@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { parseISO, format } from "date-fns";
 import { CiTimer, CiCalendar } from "react-icons/ci";
 import "./EpisodeDetail.scss";
@@ -33,6 +34,14 @@ const EpisodeDetail = ({
       />
     </div>
   );
+};
+
+EpisodeDetail.propTypes = {
+  episodeUrl: PropTypes.string,
+  description: PropTypes.string,
+  trackName: PropTypes.string,
+  releaseDate: PropTypes.string,
+  trackTimeMillis: PropTypes.number,
 };
 
 export default EpisodeDetail;

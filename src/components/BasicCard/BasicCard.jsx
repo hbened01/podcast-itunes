@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./BasicCard.scss";
 import { randomHex } from "@/utils";
+import PropTypes from 'prop-types';
 
 const BasicCard = ({
   collectionName,
@@ -47,5 +48,15 @@ const BasicCard = ({
     </Link>
   );
 };
+
+BasicCard.propTypes = {
+  collectionName: PropTypes.string,
+  collectionId: PropTypes.number,
+  artworkUrl600: PropTypes.string,
+  artistName: PropTypes.string,
+  summary: PropTypes.string,
+  genres: PropTypes.array,
+};
+
 
 export default BasicCard;

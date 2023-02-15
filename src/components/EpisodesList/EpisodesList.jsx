@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { BsPlayCircle } from "react-icons/bs";
 import { CiTimer } from "react-icons/ci";
 import { parseISO, format } from "date-fns";
@@ -50,6 +51,12 @@ const EpisodesList = ({
       </div>
     </div>
   );
+};
+
+EpisodesList.propTypes = {
+  dataPodcastTrackCard: PropTypes.object,
+  dataEpisodes: PropTypes.array,
+  handleClickEpisode: PropTypes.func,
 };
 
 export default EpisodesList;
