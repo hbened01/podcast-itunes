@@ -14,7 +14,7 @@ const BasicCard = ({
 }) => {
   const location = useLocation();
   return (
-    <Link className="basic-card-container" to={location?.pathname?.includes("podcastDetail") ? `/` : `/podcastDetail/${collectionId}`}>
+    <Link className="basic-card-container" to={location?.pathname?.includes("podcastDetail") ? `/podcast-itunes` : `/podcast-itunes/podcastDetail/${collectionId}`}>
       <div className="basic-card-container_img">
         <img
           src={artworkUrl600}

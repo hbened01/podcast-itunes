@@ -25,7 +25,7 @@ const Home = () => {
 
   // GO TO DETAIL PODCAST:
   const handleOnClickPodCast = (podcastId) => {
-    navigate(`/podcastDetail/${podcastId}`);
+    navigate(`/podcast-itunes/podcastDetail/${podcastId}`);
   };
 
   return (

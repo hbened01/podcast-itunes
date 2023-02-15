@@ -36,7 +36,7 @@ const PodcastDetail = () => {
   };
 
   const handleClickEpisode = (podcastId, episodeId) => {
-    navigate(`/podcastEpisodeDetail/${podcastId}/${episodeId}/`, {
+    navigate(`/podcast-itunes/podcastEpisodeDetail/${podcastId}/${episodeId}/`, {
       state: {
         summary,
         dataEpisodes,
