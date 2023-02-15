@@ -22,6 +22,8 @@ npm run test
 127.0.0.1     podcast_itunes.com
 
 ### Add .env file in the root directory with the following variables
-VITE_API_ITUNES_URL=https://itunes.apple.com/
+VITE_API_ITUNES_URL=https://itunes.apple.com
+VITE_API_ALLORIGINS_CORS=https://api.allorigins.win
+
 
 For more info, checkout the [React Page Documentation](https://beta.es.reactjs.org/).
