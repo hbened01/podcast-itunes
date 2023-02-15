@@ -9,7 +9,7 @@ const routes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/home" element={<Home />} />
+      <Route path="/podcast_itunes" element={<Home />} />
       <Route path="/podcastDetail/:podcastId" element={<PodcastDetail />} />
       <Route path="/podcastEpisodeDetail/:podcastId/:episodeId" element={<PodcastEpisodeDetail />} />
       <Route name="not-found" path="*" element={<NotFound />} />

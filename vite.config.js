@@ -5,7 +5,7 @@ import { resolve } from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/podcast_itunes/',
+  base: './',
   server: {
     port: 5173,
     host: "podcast_itunes.com",
