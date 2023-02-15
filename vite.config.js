@@ -1,14 +1,15 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { resolve } from "path"
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import eslint from "vite-plugin-eslint";
+import { resolve } from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
     port: 8080,
-    host: 'podcast_itunes.com',
+    host: "podcast_itunes.com",
   },
-  plugins: [react()],
+  plugins: [react(), eslint()],
   resolve: {
     alias: {
       "@": resolve(__dirname, "src"),
@@ -16,7 +17,7 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    environment: 'jsdom',
-    setupFiles: './jest.setup.js',
+    environment: "jsdom",
+    setupFiles: "./jest.setup.js",
   },
-})
+});
