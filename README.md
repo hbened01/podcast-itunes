@@ -10,7 +10,7 @@ Application make in React JS with Podcaster itunes api, styles in tailwind.
 # install dependencies
 npm i
 
-# development serve at podcast_itunes.com:8080/
+# development serve at http://podcaster.com:5173
 npm run dev
 
 # build for production with minification
