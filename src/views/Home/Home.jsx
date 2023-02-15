@@ -31,7 +31,7 @@ const Home = () => {
   return (
     <div className="relative">
       <Search onChange={setFilter} count={count} />
-      <div ref={home} className="home-container">
+      <div ref={home} className="home-container" data-testid="home-container">
         {!isLoadingCtx &&
           podcastData
             ?.filter((podcast) => {
