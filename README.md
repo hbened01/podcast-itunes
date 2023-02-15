@@ -1,7 +1,7 @@
 # Podcaster Itunes Application
 Application make in React JS with Podcaster itunes api, styles in tailwind.
 
-## Live Preview demo on github.com
+## Live preview demo on github.com
 [Demo](https://hbened01.github.io/podcast-itunes/)
 
 ## CLI Commands
