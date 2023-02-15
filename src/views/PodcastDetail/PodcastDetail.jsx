@@ -36,6 +36,7 @@ const PodcastDetail = () => {
   const handleClickEpisode = (podcastId, episodeId) => {
     navigate(`/podcastEpisodeDetail/${podcastId}/${episodeId}/`, {
       state: {
+        summary,
         dataEpisodes,
         dataPodcastTrackCard,
       },
@@ -52,10 +53,10 @@ const PodcastDetail = () => {
       setSummary(podcastDataStorage.current?.summary?.label);
 
     // Get data if not available in the local storage:
-    !podcastsEpisodesDataStorage.current &&
+    !podcastDataStorage?.current &&
       getPodcastsData()
         .then((data) => {
-          const dataFetchPodcaster = data?.feed?.entry;
+          const dataFetchPodcaster = JSON.parse(data?.contents)?.feed?.entry;
           const dateControlApiTime = getTime(addHours(new Date(), 24)); // CONTROL API TIME 24 HRS.
           const podcastData = dataFetchPodcaster.find(
             (podcast) => podcast?.id?.attributes["im:id"] === podcastId
@@ -102,7 +103,7 @@ const PodcastDetail = () => {
         getPodcastsDetailData(podcastId)
           .then((data) => {
             const dateControlEpisodeApiTime = getTime(addHours(new Date(), 24)); // CONTROL EPISODE API TIME 24 HRS.
-            const dataFetchEpisodes = data;
+            const dataFetchEpisodes = JSON.parse(data?.contents);
             const newPodcastsEpisodesDataStorage = [
               ...(podcastsEpisodesDataStorage.current || []),
               ...[

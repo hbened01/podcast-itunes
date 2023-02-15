@@ -32,12 +32,12 @@ const Home = () => {
     headerLoader.current?.classList?.remove("hidden");
     if (
       getTime(new Date()) > podcastDataListStorage.current?.dateControl ||
-      !podcastDataListStorage.current
+      !podcastDataListStorage.current?.dataListPodcasts
     ) {
       setTimeout(() => {
         getPodcastsData()
           .then((data) => {
-            const dataFetchPodcaster = data?.feed?.entry;
+            const dataFetchPodcaster = JSON.parse(data?.contents)?.feed?.entry;
             const dateControlApiTime = getTime(addHours(new Date(), 24)); // CONTROL API TIME 24 HRS.
             // SET DATA IN THE STATE:
             setPodcastDataState(dataFetchPodcaster);

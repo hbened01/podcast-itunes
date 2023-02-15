@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { EpisodeDetail, BasicCard, Loader } from "@/components";
-import { getPodcastsDetailData } from "@/services";
+import { getPodcastsData, getPodcastsDetailData } from "@/services";
 import "./PodcastEpisodeDetail.scss";
 
 const PodcastEpisodeDetail = () => {
@@ -10,6 +10,7 @@ const PodcastEpisodeDetail = () => {
   const [episode, setEpisode] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const headerLoader = useRef(null);
+  const [summary, setSummary] = useState(location?.state?.summary || "");
   const [dataEpisodes, setDataEpisodes] = useState(location?.state?.dataEpisodes || []);
   const [dataPodcastTrackCard, setDataPodcastTrackCard] = useState(location?.state?.dataPodcastTrackCard || {});
 
@@ -22,11 +23,23 @@ const PodcastEpisodeDetail = () => {
   useEffect(() => {
     if (!location?.state) {
       getPodcastsDetailData(podcastId).then((data) => {
-        const dataFetchEpisodes = data;
+        const dataFetchEpisodes = JSON.parse(data?.contents);
         dataFetchEpisodes?.results?.forEach((episode) =>
           setdataEpisodesInStates(episode)
         );
       })
+      getPodcastsData()
+        .then((data) => {
+          const dataFetchPodcaster = JSON.parse(data?.contents)?.feed?.entry;
+          const podcastData = dataFetchPodcaster.find(
+            (podcast) => podcast?.id?.attributes["im:id"] === podcastId
+          );
+          // Set summary:
+          setSummary(
+            podcastData?.summary?.label
+          );
+        })
+        .catch((error) => console.log(error));
     }
   }, [podcastId, location?.state]);
 
@@ -54,7 +67,7 @@ const PodcastEpisodeDetail = () => {
     <>
       {!isLoading && (
         <div className="podcast-episode-detail-container">
-          <BasicCard summary={dataPodcastTrackCard?.summary?.label} {...dataPodcastTrackCard} />
+          <BasicCard summary={summary} {...dataPodcastTrackCard} />
           <EpisodeDetail {...episode} />
         </div>
       )}
