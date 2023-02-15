@@ -1,5 +1,5 @@
 .basic-card-container {
-  @apply w-[30%] h-auto bg-white border flex flex-col items-stretch border-gray-200 rounded-lg shadow-lg;
+  @apply sm:w-[30%] h-auto bg-white border flex flex-col items-stretch border-gray-200 rounded-lg shadow-lg;
   &_img {
     @apply px-5 pt-5;
   }
