@@ -5,8 +5,9 @@ import { resolve } from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '',
   server: {
-    port: 8080,
+    port: 5173,
     host: "podcast_itunes.com",
   },
   plugins: [react(), eslint()],
