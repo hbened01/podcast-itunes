@@ -21,7 +21,7 @@ const Home = () => {
   useEffect(() => {
     // SET DATA IN THE STATE:
     setPodcastDataState(podcastDataCtx?.dataListPodcasts);
-  }, [podcastDataCtx]);
+  }, [podcastDataCtx, filter]);
 
   // GO TO DETAIL PODCAST:
   const handleOnClickPodCast = (podcastId) => {
