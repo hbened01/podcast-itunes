@@ -13,15 +13,15 @@ const Home = () => {
   const context = useContext(Context);
   const { podcastDataCtx, isLoadingCtx } = context;
 
-  const setPodcastDataState = (data) => {
+  const setPodcastDataState = (data, isLoading) => {
     setPodcastData(data);
-    setTimeout(() => setCount(home?.current?.childNodes?.length || 0), 1000);
+    setTimeout(() => setCount((home?.current?.childNodes?.length && isLoading) || 0), 1000);
   };
 
   useEffect(() => {
     // SET DATA IN THE STATE:
-    setPodcastDataState(podcastDataCtx?.dataListPodcasts);
-  }, [podcastDataCtx, filter]);
+    setPodcastDataState(podcastDataCtx?.dataListPodcasts, isLoadingCtx);
+  }, [isLoadingCtx, podcastDataCtx, filter]);
 
   // GO TO DETAIL PODCAST:
   const handleOnClickPodCast = (podcastId) => {
