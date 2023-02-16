@@ -39,7 +39,7 @@ For more info about Vite, checkout the [React Page Documentation](https://vitejs
 
 For more info about Tailwind, checkout the [React Page Documentation](https://tailwindcss.com/docs/installation/).
 
-### to be improved
+### To be improved
 
 I would have liked to add tests with the cypress library, change the style of the default audio player to create another component with it and add more properties to control it, as well as other visual improvements of animations and effects.
 
