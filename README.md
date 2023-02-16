@@ -1,4 +1,4 @@
-# Podcaster Itunes Application
+# 🎛 Podcaster Itunes Application
 Application make in React JS with Podcaster itunes api, styles in tailwind, vite, jest and others libraries.
 
 ## Live preview demo on github.com
