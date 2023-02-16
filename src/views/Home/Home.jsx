@@ -35,6 +35,7 @@ const Home = () => {
     // SET DATA IN THE STATE:
     setPodcastDataState(podcastDataCtx?.dataListPodcasts, isLoadingCtx);
 
+    // SET FILTER DATA IN THE STATE:
     setFilterData(
       podcastData?.filter((podcast) => {
         const author = podcast["im:artist"]?.label.toLowerCase();
