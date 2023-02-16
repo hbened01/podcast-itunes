@@ -2,7 +2,7 @@
 Application make in React JS with Podcaster itunes api, styles in tailwind, vite, jest and others libraries.
 
 ## Live preview demo on github.com
-[Demo](https://hbened01.github.io/podcast-itunes/)
+🔗 [Demo](https://hbened01.github.io/podcast-itunes/)
 
 ## CLI Commands
 
@@ -33,9 +33,9 @@ VITE_API_ALLORIGINS_CORS=https://api.allorigins.win
 
 ### Documentation links
 
-For more info about React, checkout the [React Page Documentation](https://beta.es.reactjs.org/).
+🔗 For more info about React, checkout the [React Page Documentation](https://beta.es.reactjs.org/).
 
-For more info about Vite, checkout the [React Page Documentation](https://vitejs.dev/guide/).
+🔗 For more info about Vite, checkout the [React Page Documentation](https://vitejs.dev/guide/).
 
-For more info about Tailwind, checkout the [React Page Documentation](https://tailwindcss.com/docs/installation/).
+🔗 For more info about Tailwind, checkout the [React Page Documentation](https://tailwindcss.com/docs/installation/).
 
