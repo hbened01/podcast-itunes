@@ -15,7 +15,7 @@ const Home = () => {
 
   const setPodcastDataState = (data, isLoading) => {
     setPodcastData(data);
-    setTimeout(() => setCount((home?.current?.childNodes?.length && isLoading) || 0), 1000);
+    setTimeout(() => setCount(!isLoading ? home?.current?.childNodes?.length : 0), 500);
   };
 
   useEffect(() => {
