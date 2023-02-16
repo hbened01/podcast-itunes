@@ -13,7 +13,7 @@ describe("Search", () => {
         />
       </Router>
     );
-    screen.debug();
+    // screen.debug();
     expect(screen.getByRole("searchbox")).toBeInTheDocument();
     expect(screen.getByText(`15`)).toBeInTheDocument();
   });
