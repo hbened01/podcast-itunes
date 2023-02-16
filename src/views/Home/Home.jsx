@@ -7,53 +7,63 @@ import "./Home.scss";
 const Home = () => {
   const [filter, setFilter] = useState("");
   const [podcastData, setPodcastData] = useState([]);
+  const [filterData, setFilterData] = useState([]);
   const [count, setCount] = useState(0);
   const home = useRef(null);
   const navigate = useNavigate();
   const context = useContext(Context);
   const { podcastDataCtx, isLoadingCtx } = context;
 
+  // SET DATA IN STATE:
   const setPodcastDataState = (data, isLoading) => {
     setPodcastData(data);
-    setTimeout(() => setCount(!isLoading ? home?.current?.childNodes?.length : 0), 500);
+    setTimeout(
+      () =>
+        setCount(() =>
+          !isLoading ? home?.current?.childNodes?.length || 0 : 0
+        ),
+      1000
+    );
   };
-
-  useEffect(() => {
-    // SET DATA IN THE STATE:
-    setPodcastDataState(podcastDataCtx?.dataListPodcasts, isLoadingCtx);
-  }, [isLoadingCtx, podcastDataCtx, filter]);
 
   // GO TO DETAIL PODCAST:
   const handleOnClickPodCast = (podcastId) => {
     navigate(`/podcast-itunes/podcastDetail/${podcastId}`);
   };
 
+  useEffect(() => {
+    // SET DATA IN THE STATE:
+    setPodcastDataState(podcastDataCtx?.dataListPodcasts, isLoadingCtx);
+
+    setFilterData(
+      podcastData?.filter((podcast) => {
+        const author = podcast["im:artist"]?.label.toLowerCase();
+        const title = podcast["im:name"]?.label.toLowerCase();
+        if (filter === "") return true;
+        if (author.includes(filter) || title.includes(filter)) return true;
+        return false;
+      })
+    );
+  }, [isLoadingCtx, podcastDataCtx, filter, podcastData]);
+
   return (
     <div className="relative">
       <Search onChange={setFilter} count={count} />
       <div ref={home} className="home-container" data-testid="home-container">
         {!isLoadingCtx &&
-          podcastData
-            ?.filter((podcast) => {
-              const author = podcast["im:artist"]?.label.toLowerCase();
-              const title = podcast["im:name"]?.label.toLowerCase();
-              if (filter === "") return true;
-              if (author.includes(filter) || title.includes(filter)) return true;
-              return false;
-            })
-            .map((podcast) => {
-              const author = podcast["im:artist"]?.label;
-              const podcastId = Number(podcast?.id?.attributes["im:id"]);
-              const imageSrc = podcast["im:image"][2]?.label;
-              const title = podcast["im:name"]?.label;
-              return (
-                <Card
-                  {...{ author, podcastId, imageSrc, title }}
-                  key={podcastId}
-                  handleOnClickPodCast={handleOnClickPodCast}
-                />
-              );
-            })}
+          filterData?.map((podcast) => {
+            const author = podcast["im:artist"]?.label;
+            const podcastId = Number(podcast?.id?.attributes["im:id"]);
+            const imageSrc = podcast["im:image"][2]?.label;
+            const title = podcast["im:name"]?.label;
+            return (
+              <Card
+                {...{ author, podcastId, imageSrc, title }}
+                key={podcastId}
+                handleOnClickPodCast={handleOnClickPodCast}
+              />
+            );
+          })}
         {isLoadingCtx && <Loader />}
       </div>
     </div>
