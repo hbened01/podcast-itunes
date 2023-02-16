@@ -21,6 +21,6 @@ describe("Card", () => {
     // screen.debug();
     expect(screen.getByText(`The Joe Budden Podcast`)).toBeInTheDocument();
     expect(screen.getByRole("img")).toBeInTheDocument();
-    expect(screen.getByTestId('text-author')).toBeInTheDocument()
+    expect(screen.getByTestId("text-author")).toBeInTheDocument();
   });
 });

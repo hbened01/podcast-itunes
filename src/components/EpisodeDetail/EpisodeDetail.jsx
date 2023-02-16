@@ -30,6 +30,7 @@ const EpisodeDetail = ({
       <audio
         className="detail-episode-container_player"
         src={episodeUrl}
+        data-testid="audio"
         controls
       />
     </div>

@@ -34,14 +34,14 @@ const EpisodesList = ({
                 >
                   <td className="text-blue-500 group-hover:text-blue-700 px-6 py-4 inline-flex whitespace-nowrap">
                     <BsPlayCircle className="text-lg mt-[2px] mr-2" />
-                    {trackName}.
+                    {trackName}
                   </td>
                   <td className="text-gray-500 group-hover:text-gray-700 px-6 py-4 whitespace-nowrap">
-                    {format(parseISO(releaseDate), "PPPP")}.
+                    {format(parseISO(releaseDate), "PPPP")}
                   </td>
                   <td className="text-gray-500 group-hover:text-gray-700 px-6 py-4 inline-flex whitespace-nowrap">
                     <CiTimer className="text-lg mt-[2px] mr-2" />
-                    {(trackTimeMillis / 1000 / 60).toFixed(0)} Min.
+                    {(trackTimeMillis / 1000 / 60).toFixed(0)} Min
                   </td>
                 </tr>
               )
