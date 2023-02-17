@@ -139,7 +139,7 @@ const PodcastDetail = () => {
         );
         setIsLoading(false);
         headerLoader.current?.classList?.add("hidden");
-      }, 1000);
+      }, 500);
     }
   }, [podcastId, podcastDataCtx]);
 
