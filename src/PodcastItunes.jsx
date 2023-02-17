@@ -26,29 +26,27 @@ const PodcastItunes = () => {
       getTime(new Date()) > podcastDataListStorage.current?.dateControl ||
       !podcastDataListStorage.current?.dataListPodcasts
     ) {
-      setTimeout(() => {
-        getPodcastsData()
-          .then((data) => {
-            const dataFetchPodcaster = JSON.parse(data?.contents)?.feed?.entry;
-            const dateControlApiTime = getTime(addHours(new Date(), 24)); // CONTROL API TIME 24 HRS.
-            const dataStorage = {
-              dateControl: dateControlApiTime,
-              dataListPodcasts: dataFetchPodcaster,
-            };
-            // SET DATA IN LOCALSTORAGE:
-            window.localStorage.setItem(
-              "DATA_PODCASTS_HOME",
-              JSON.stringify(dataStorage)
-            );
-            // SET DATA IN THE STATE:
-            setPodcastDataCtx(dataStorage);
-          })
-          .catch((error) => console.log(error))
-          .finally(() => {
-            setIsLoadingCtx(false);
-            headerLoader.current?.classList?.add("hidden");
-          });
-      }, 500);
+      getPodcastsData()
+        .then((data) => {
+          const dataFetchPodcaster = JSON.parse(data?.contents)?.feed?.entry;
+          const dateControlApiTime = getTime(addHours(new Date(), 24)); // CONTROL API TIME 24 HRS.
+          const dataStorage = {
+            dateControl: dateControlApiTime,
+            dataListPodcasts: dataFetchPodcaster,
+          };
+          // SET DATA IN LOCALSTORAGE:
+          window.localStorage.setItem(
+            "DATA_PODCASTS_HOME",
+            JSON.stringify(dataStorage)
+          );
+          // SET DATA IN THE STATE:
+          setPodcastDataCtx(dataStorage);
+        })
+        .catch((error) => console.log(error))
+        .finally(() => {
+          setIsLoadingCtx(false);
+          headerLoader.current?.classList?.add("hidden");
+        });
       return;
     }
     setTimeout(() => {
