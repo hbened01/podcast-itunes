@@ -35,7 +35,7 @@ VITE_API_ALLORIGINS_CORS=https://api.allorigins.win
 
 🔗 For more info about React, checkout the [React Page Documentation](https://beta.es.reactjs.org/).
 
-🔗 For more info about Vite, checkout the [React Page Documentation](https://vitejs.dev/guide/).
+🔗 For more info about Vite, checkout the [Vite Page Documentation](https://vitejs.dev/guide/).
 
-🔗 For more info about Tailwind, checkout the [React Page Documentation](https://tailwindcss.com/docs/installation/).
+🔗 For more info about Tailwind, checkout the [Tailwind Page Documentation](https://tailwindcss.com/docs/installation/).
 
