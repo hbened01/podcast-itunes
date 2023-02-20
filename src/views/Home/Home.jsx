@@ -31,7 +31,7 @@ const Home = () => {
         return false;
       })
     );
-  }, [isLoadingCtx, podcastDataCtx, filter, podcastData]);
+  }, [podcastDataCtx, filter, podcastData]);
 
   return (
     <div className="relative">
