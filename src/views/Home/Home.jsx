@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Search, Loader } from "@/components";
 import { Context } from "@/Contexts";
@@ -8,11 +8,10 @@ const Home = () => {
   const [filter, setFilter] = useState("");
   const [podcastData, setPodcastData] = useState([]);
   const [filterData, setFilterData] = useState([]);
-  const home = useRef(null);
   const navigate = useNavigate();
   const context = useContext(Context);
   const { podcastDataCtx, isLoadingCtx } = context;
-  
+
   // GO TO DETAIL PODCAST:
   const handleOnClickPodCast = (podcastId) => {
     navigate(`/podcast-itunes/podcastDetail/${podcastId}`);
@@ -37,7 +36,7 @@ const Home = () => {
   return (
     <div className="relative">
       <Search onChange={setFilter} count={filterData?.length} />
-      <div ref={home} className="home-container" data-testid="home-container">
+      <div className="home-container" data-testid="home-container">
         {!isLoadingCtx &&
           filterData?.map((podcast) => {
             const author = podcast["im:artist"]?.label;
